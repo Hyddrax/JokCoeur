@@ -31,7 +31,7 @@ const data = [
     }
 ];
 
-export default class ImageCarousel extends Component {
+export default class CustomCarousel extends Component {
     renderItem = ({ item, index }) => {
         const { uri, title, content } = item;
         return (
@@ -59,6 +59,7 @@ export default class ImageCarousel extends Component {
                 style={styles.carousel}
                 data={data}
                 renderItem={this.renderItem}
+                initialIndex={Math.floor(data.length / 2)}
                 itemWidth={0.5 * width}
                 inActiveOpacity={0.3}
                 containerWidth={width - 0}
@@ -73,20 +74,20 @@ export default class ImageCarousel extends Component {
 const styles = StyleSheet.create({
     carousel: {
         flex: 1,
-        backgroundColor: '#141518'
+        backgroundColor: '#eee',
+        borderTopWidth: 1,
+        borderColor: '#000',
     },
     item: {
-        borderWidth: 2,
-        backgroundColor: 'white',
         flex: 1,
+        borderWidth: 2,
         borderRadius: 5,
-        borderColor: 'white',
+        borderColor: '#000',
         elevation: 3
     },
     imageBackground: {
         flex: 2,
-        backgroundColor: '#EBEBEB',
-        borderWidth: 2,
-        borderColor: 'white'
+        backgroundColor: '#fff',
+        borderRadius: 5,
     }
 });
