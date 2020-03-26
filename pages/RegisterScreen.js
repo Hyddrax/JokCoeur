@@ -9,20 +9,15 @@ export default class RegisterScreen extends Component {
 
     static navigationOptions = {
         title: "SignUp",
+        headerLeft: () => {
+            <View />
+        }
     };
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.logocontainer}>
-                    <Image style={styles.logo}
-                        source={require('../assets/test.jpg')} />
-                    <Text style={styles.title}> Creer Mon Compte </Text>
-
-                </View>
-                <View style={styles.formcontainer}>
-                    <SignUpForm {...this.props} />
-                </View>
+                <SignUpForm {...this.props} />
             </View>
         );
     }
@@ -30,19 +25,6 @@ export default class RegisterScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f2f2f2',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexGrow: 1
+        backgroundColor: '#fff',
     },
-    logo: {
-        height: 100,
-        width: 100,
-    },
-    title: {
-        width: 160,
-        marginTop: 20,
-        opacity: 0.6
-        //textAlign : 'center'
-    }
 });

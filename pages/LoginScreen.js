@@ -9,18 +9,15 @@ export default class LoginScreen extends Component {
 
     static navigationOptions = {
         title: "SignIn",
+        headerLeft: () => {
+            <View />
+        }
     };
 
     render() {
         return (
             <View style={styles.container}>
-                <View>
-                    <Text style={styles.title}> Creer Mon Compte </Text>
-
-                </View>
-                <View>
-                    <SignInForm {...this.props} />
-                </View>
+                <SignInForm {...this.props} />
             </View>
         );
     }
@@ -28,18 +25,6 @@ export default class LoginScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f2f2f2',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexGrow: 1
+        backgroundColor: '#fff',
     },
-    logo: {
-        height: 100,
-        width: 100,
-    },
-    title: {
-        width: 160,
-        marginTop: 20,
-        opacity: 0.6
-    }
 });

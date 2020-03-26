@@ -1,76 +1,77 @@
-import React, { Component } from 'react';
-import {
-    View,
-    StyleSheet,
-    TextInput,
-    Text,
-    TouchableOpacity,
-} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AuthSession } from 'expo';
 
-export default class SignUpForm extends Component {
+import React from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+
+export default class SignUpForm extends React.Component {
     constructor(props) {
-        super(props);
-        console.log(props)
+        super();
+        this.state = {
+            prenom: "",
+            nom: "",
+            age: "",
+            profession: "",
+            email: "",
+            password: ""
+        };
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flex: 6 }}>
-                    <View style={styles.lineStyle}>
-                        <Icon
-                            name="user-circle-o"
-                            color="#000"
-                            size={45}
-                            style={styles.icon}
-                        />
-                        <TextInput placeholder="Prénom & Nom" style={styles.input} />
-                    </View>
-
-                    <View style={styles.lineStyle}>
-                        <Icon
-                            name="birthday-cake"
-                            color="#000"
-                            size={45}
-                            style={styles.icon}
-                        />
-                        <TextInput placeholder="Age" style={styles.input} />
-                    </View>
-
-                    <View style={styles.lineStyle}>
-                        <Icon name="briefcase" color="#000" size={45} style={styles.icon} />
-                        <TextInput placeholder="Profession" style={styles.input} />
-                    </View>
-
-                    <View style={styles.lineStyle}>
-                        <Icon name="envelope" color="#000" size={45} style={styles.icon} />
-                        <TextInput placeholder="Email" style={styles.input} />
-                    </View>
-
-                    <View style={styles.lineStyle}>
-                        <Icon name="key" color="#000" size={45} style={styles.icon} />
-                        <TextInput
-                            placeholder="Mot de Passe"
-                            secureTextEntry={true}
-                            style={styles.input}
-                        />
-
-                        <TouchableOpacity style={styles.btnEye} onPress={this.onPress}>
-                            <Icon name="eye-slash" size={30} />
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.butt}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.validateRegistration}>
-                            <Text> SignUp </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignIn')}>
-                            <Text> SignIn </Text>
-                        </TouchableOpacity>
-                        <Text style={styles.text1}> Conditions générales </Text>
-                    </View>
+                <Text style={styles.logo}>JokCoeur</Text>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Prénom"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({ prenom: text })} />
                 </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Nom"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({ nom: text })} />
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Age"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({ age: text })} />
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Profession"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({ profession: text })} />
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Email"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({ email: text })} />
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        secureTextEntry
+                        style={styles.inputText}
+                        placeholder="Mot de Passe"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({ password: text })} />
+                </View>
+                <TouchableOpacity style={styles.signupBtn} onPress={() => this.validateRegistration()}>
+                    <Text style={styles.signinText}>SignUp</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.signinBtn} onPress={() => this.props.navigation.navigate('SignIn')}>
+                    <Text style={styles.signupText}>Signin</Text>
+                </TouchableOpacity>
+
+
             </View>
         );
     }
@@ -79,6 +80,7 @@ export default class SignUpForm extends Component {
         let registrationOK = false;
         //Check in BDD if user Exist and then check MDP is OK
         registrationOK = true; //Bouchon
+
         if (registrationOK) {
             this.props.navigation.navigate('SignIn');
         } else {
@@ -86,52 +88,53 @@ export default class SignUpForm extends Component {
         }
     }
 }
+
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    input: {
-        flex: 8,
+    logo: {
+        fontWeight: "bold",
+        fontSize: 50,
+        color: "#800080",
+        marginBottom: 30
+    },
+    inputView: {
+        width: "80%",
+        height: 30,
+        backgroundColor: "#f2f2f2",
+        justifyContent: "center",
+        marginBottom: 20,
+        padding: 20
+    },
+    inputText: {
+        height: 30,
+        color: "#800080"
+    },
+    signupBtn: {
+        width: "50%",
         height: 40,
-        backgroundColor: 'rgba(255,255,255,100)',
+        backgroundColor: "#800080",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        marginBottom: 10
+    },
+    signinBtn: {
+        height: 20,
+        backgroundColor: "#800080",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
         marginBottom: 10,
-        color: '#000',
-        paddingHorizontal: 10,
-        borderRadius: 18,
+        padding: 20,
     },
-
-    icon: {
-        display: 'flex',
-        flex: 2,
-        alignItems: 'center',
-        justifyContent: 'center',
+    signinText: {
+        color: "#fff"
     },
-    lineStyle: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text1: {
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontSize: 14,
-    },
-    butt: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 50,
-    },
-    button: {
-        height: 45,
-        alignItems: 'center',
-        backgroundColor: '#DDDDDD',
-        padding: 10,
-        borderRadius: 18,
-    },
-    btnEye: {
-        position: 'absolute',
-        top: 8,
-        right: 37,
-    },
+    signupText: {
+        color: "#fff"
+    }
 });
