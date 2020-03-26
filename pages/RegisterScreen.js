@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import LoginForm from '../components/LoginForm';
+import SignUpForm from '../components/SignUpForm';
 
-export default class ConnectScreen extends Component {
+export default class RegisterScreen extends Component {
     constructor(props) {
         super(props);
     }
+
+    static navigationOptions = {
+        title: "SignUp",
+    };
 
     render() {
         return (
@@ -17,7 +21,7 @@ export default class ConnectScreen extends Component {
 
                 </View>
                 <View style={styles.formcontainer}>
-                    <LoginForm {...this.props} />
+                    <SignUpForm {...this.props} />
                 </View>
             </View>
         );

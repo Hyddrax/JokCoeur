@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class LoginForm extends Component {
+export default class SignUpForm extends Component {
     constructor(props) {
         super(props);
         console.log(props)
@@ -62,14 +62,28 @@ export default class LoginForm extends Component {
                     </View>
 
                     <View style={styles.butt}>
-                        <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('Main') }}>
-                            <Text> Validation </Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this.validateRegistration}>
+                            <Text> SignUp </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignIn')}>
+                            <Text> SignIn </Text>
                         </TouchableOpacity>
                         <Text style={styles.text1}> Conditions générales </Text>
                     </View>
                 </View>
             </View>
         );
+    }
+
+    validateRegistration() {
+        let registrationOK = false;
+        //Check in BDD if user Exist and then check MDP is OK
+        registrationOK = true; //Bouchon
+        if (registrationOK) {
+            this.props.navigation.navigate('SignIn');
+        } else {
+            //Afficher registration Failed
+        }
     }
 }
 const styles = StyleSheet.create({

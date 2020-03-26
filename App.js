@@ -12,7 +12,8 @@ import HomeScreen from './pages/HomeScreen';
 import SettingsScreen from './pages/SettingsScreen';
 import JournalScreen from './pages/JournalScreen';
 import StatScreen from './pages/StatScreen'
-import ConnectScreen from './pages/ConnectScreen'
+import LoginScreen from './pages/LoginScreen'
+import RegisterScreen from './pages/RegisterScreen'
 
 const JournalStack = createStackNavigator(
   {
@@ -73,7 +74,8 @@ const SettingsStack = createStackNavigator(
 const ConnectStack = createStackNavigator(
   {
     //Defination of Navigaton from setting screen
-    Connect: { screen: ConnectScreen },
+    SignIn: { screen: LoginScreen },
+    SignUp: { screen: RegisterScreen },
   },
   {
     defaultNavigationOptions: {
@@ -82,9 +84,10 @@ const ConnectStack = createStackNavigator(
         backgroundColor: '#800080',
       },
       headerTintColor: '#FFFFFF',
-      title: 'Login',
+      title: 'SignIn',
       //Header title
     },
+    initialRouteName: 'SignIn',
   }
 );
 
