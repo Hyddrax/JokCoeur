@@ -43,6 +43,12 @@ ________________________________________________________________________________
 
 *Assurer vous d'utiliser la version 10.19.0 de Node : nvm use 10.19.0*
 
+```
+- La partie de connexion et de création peut être désactiver/activer via une variable nommé 'bouchon'.
+Si True : connexion sans vérification, Si False : appel à une API qui communique avec une BDD Mysql.
+Cette api ce trouve sur le github : https://github.com/Hyddrax/JokCoeurApi
+```
+
 Executer les commandes suivantes : 
 ```
 npm install
