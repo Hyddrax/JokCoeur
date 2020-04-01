@@ -3,24 +3,65 @@ import { AuthSession } from 'expo';
 
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import NumericInput from './NumericInput';
+
+
+import axios from "axios"
+
+const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
 
 export default class SignUpForm extends React.Component {
     constructor(props) {
         super();
         this.state = {
+            email: "",
+            password: "",
             prenom: "",
             nom: "",
-            age: "",
+            age: 0,
             profession: "",
-            email: "",
-            password: ""
+            showError: false,
+            errorMessage: ""
         };
+    }
+
+    updateAge(value) {
+        this.setState({
+            age: value,
+        })
+    }
+
+    showErrorMsg(msg) {
+        this.setState({
+            errorMessage: msg,
+            showError: true,
+        })
+    }
+
+    hideErrorMsg() {
+        this.setState({
+            errorMessage: "",
+            showError: true,
+        })
+    }
+
+    _renderErrorMsg() {
+        if (this.state.showError) {
+            return (
+                <Text style={styles.errorText} disable={true}>{this.state.errorMessage}</Text>
+            )
+        } else {
+            return null
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.logo}>JokCoeur</Text>
+                <View>
+                    {this._renderErrorMsg()}
+                </View>
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
@@ -36,11 +77,12 @@ export default class SignUpForm extends React.Component {
                         onChangeText={text => this.setState({ nom: text })} />
                 </View>
                 <View style={styles.inputView} >
-                    <TextInput
+                    <NumericInput
                         style={styles.inputText}
                         placeholder="Age"
                         placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({ age: text })} />
+                        updateValue={this.updateAge.bind(this)}
+                    />
                 </View>
                 <View style={styles.inputView} >
                     <TextInput
@@ -76,16 +118,100 @@ export default class SignUpForm extends React.Component {
         );
     }
 
-    validateRegistration() {
-        let registrationOK = false;
-        //Check in BDD if user Exist and then check MDP is OK
-        registrationOK = true; //Bouchon
+    async validateRegistration() {
+        let bouchon = true;
 
-        if (registrationOK) {
-            this.props.navigation.navigate('SignIn');
+        if (!bouchon) {
+            let validateFields = this.validateFields();
+            if (validateFields.isOk) {
+                let url = apiServerIp + '/user/' + this.state.email
+
+                let userApiCall = await axios.get(url)
+                    .then((response) => {
+                        // console.log(response.data, "response data");
+
+                        return response.data;
+
+                    })
+                    .catch(error => console.log(error))
+
+                if (userApiCall != null && userApiCall != undefined) {
+                    let users = userApiCall;
+
+                    if (Array.isArray(users) && users.length == 0) {
+                        //create User 
+                        url = apiServerIp + '/user'
+
+                        userApiCall = await axios.post(url, {
+                            email: this.state.email,
+                            password: this.state.password,
+                            name: this.state.prenom,
+                            lastname: this.state.nom,
+                            age: this.state.age,
+                            profession: this.state.profession
+                        }).then((response) => {
+                            // console.log(response.data, "response data 2");
+
+                            return response.data;
+                        }).catch(error => console.log(error))
+
+                        if (userApiCall != null) {//ret 200
+                            this.props.navigation.navigate('SignIn');
+                        } else {
+                            this.showErrorMsg("Un probleme est survenue lors de la création du compte !");
+                        }
+                    } else {
+                        this.showErrorMsg("Un compte existe déjà avec cette email");
+                    }
+                } else {
+                    this.showErrorMsg("Connection Failed (Database)");
+                }
+            } else {
+                this.showErrorMsg(validateFields.msg);
+            }
         } else {
-            //Afficher registration Failed
+            // SI BOUCHON
+            this.props.navigation.navigate('SignIn');
         }
+
+
+    }
+
+    validateFields() {
+        let isOK = true;
+        let msg = "";
+        if (this.isEmpty(this.state.prenom) && isOK) {//TODO control taille max
+            isOK = false;
+            msg = "Invalid name"
+        }
+        if (this.isEmpty(this.state.nom) && isOK) { //TODO control taille max 
+            isOK = false;
+            msg = "Invalid lastname"
+        }
+        if ((this.state.age == null || this.state.age == 0 || this.state.age == undefined || this.state.age < 1 || this.state.age > 110) && isOK) {
+            isOK = false;
+            msg = "Invalid age (1-110)"
+        }
+        if (this.isEmpty(this.state.profession) && isOK) {//TODO control taille max
+            isOK = false;
+            msg = "Invalid Profession"
+        }
+        if (this.isEmpty(this.state.email) && isOK) {//TODO control taille max + email validation
+            isOK = false;
+            msg = "Invalid Email"
+        }
+        if ((this.isEmpty(this.state.password) || this.state.password.length < 8) && isOK) {//TODO control taille max 
+            isOK = false;
+            msg = "Password length must be at least 8 long"
+        }
+        let ret = { isOk: isOK, msg: msg }
+        console.log(ret, "ret");
+
+        return ret;
+    }
+
+    isEmpty(value) {
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
     }
 }
 
