@@ -41,6 +41,8 @@ ________________________________________________________________________________
 
 # Pour démarrer le projet
 
+*Assurer vous d'utiliser la version 10.19.0 de Node : nvm use 10.19.0*
+
 Executer les commandes suivantes : 
 ```
 npm install
