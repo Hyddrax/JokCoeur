@@ -10,6 +10,7 @@ import Modal from 'react-native-modal';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { reload } from 'expo/build/Updates/Updates';
+import CustomDatePicker from '../components/CustomDatePicker';
 
 
 export default class StatScreen extends React.Component {
@@ -19,6 +20,8 @@ export default class StatScreen extends React.Component {
       isModalVisible: false,
       isFocus: false,
       data: this.dataSource,
+      startDate: null,
+      endDate: null,
     };
   }
 
@@ -78,6 +81,17 @@ export default class StatScreen extends React.Component {
     })
   }
 
+  updateStartDate = (nDate) => { //TODO check if necessary to get the date here (only need in CustomDatePicker ?)
+    this.setState({
+      startDate: nDate
+    })
+  }
+  updateEndDate = (nDate) => {
+    this.setState({
+      endDate: nDate
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -97,6 +111,14 @@ export default class StatScreen extends React.Component {
               );
             })}
           </ScrollView>
+
+          <View style={styles.dateView}>
+            <CustomDatePicker callBack={this.updateStartDate} placeHolder="Date de début" />
+            <CustomDatePicker callBack={this.updateEndDate} placeHolder="Date de fin" />
+          </View>
+
+
+
           <View style={styles.selectModalView}>
             <TouchableOpacity style={styles.selectModalBtn} onPress={this.checkAll}>
               <Text style={styles.exitModalText}>Tout Selectionner</Text>
@@ -176,10 +198,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     height: 40,
-    padding: 10,
     margin: 10,
   },
   exitModalText: {
     color: "#fff"
+  },
+  dateView: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   }
 });
