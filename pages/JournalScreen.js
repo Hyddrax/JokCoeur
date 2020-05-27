@@ -7,6 +7,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import CustomCard from "../components/CustomCard";
 import CustomCarousel from '../components/CustomCarousel';
+import Draggable from '../components/Draggable'
 
 export default class JournalScreen extends React.Component {
     //Detail Screen to show from any Open detail button
@@ -15,13 +16,23 @@ export default class JournalScreen extends React.Component {
             <View style={styles.container}>
                 <View style={styles.cardRow}>
                     {/* <CustomCard uri={require("../assets/test.jpg")} /> */}
-                    <CustomCard uri={{ uri: 'https://media.discordapp.net/attachments/643737938735267843/646626060934447125/confiance.png?width=888&height=630' }} />
-                    <CustomCard uri={{ uri: 'https://media.discordapp.net/attachments/643737938735267843/646626061341163530/honte.png?width=510&height=630' }} />
+                    <View style={styles.dropZone}>
+                        <Text style={styles.text}>Drop them here!</Text>
+                        {/* <CustomCard uri={{ uri: 'https://media.discordapp.net/attachments/643737938735267843/646626060934447125/confiance.png?width=888&height=630' }} /> */}
+                    </View>
+                    <View style={styles.dropZone}>
+                        <Text style={styles.text}>Drop them here!</Text>
+                        {/* <CustomCard uri={{ uri: 'https://media.discordapp.net/attachments/643737938735267843/646626061341163530/honte.png?width=510&height=630' }} /> */}
+                    </View>
 
                 </View>
                 <View style={styles.cardRow}>
-                    <CustomCard uri={{ uri: 'https://media.discordapp.net/attachments/643737938735267843/646626057654370304/curiosite.png?width=640&height=630' }} />
-                    <CustomCard uri={{ uri: 'https://media.discordapp.net/attachments/643737938735267843/646626029103874048/amour.png?width=726&height=631' }} />
+                    <View style={{ width: "40%" }}>
+                        <Draggable uri={"https://media.discordapp.net/attachments/643737938735267843/646626057654370304/curiosite.png?width=640&height=630"} />
+                    </View>
+                    <View style={{ width: "40%" }}>
+                        <Draggable uri={"https://media.discordapp.net/attachments/643737938735267843/646626029103874048/amour.png?width=726&height=631"} />
+                    </View>
                 </View>
                 <View style={styles.caroussel}><CustomCarousel /></View>
             </View>
@@ -41,8 +52,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        flexWrap: 'nowrap',
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         padding: '6%',
     },
     caroussel: {
@@ -50,5 +60,18 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    dropZone: {
+        backgroundColor: "#00334d",
+        width: "40%"
+    },
+    text: {
+        marginTop: 25,
+        marginLeft: 5,
+        marginRight: 5,
+        textAlign: "center",
+        color: "#fff",
+        fontSize: 25,
+        fontWeight: "bold"
     }
 });

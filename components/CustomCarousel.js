@@ -7,7 +7,9 @@ import {
     Dimensions,
     ImageBackground
 } from 'react-native';
+
 import Carousel from 'react-native-anchor-carousel';
+import Draggable from './Draggable';
 
 const { width } = Dimensions.get('window');
 
@@ -42,12 +44,7 @@ export default class CustomCarousel extends Component {
                     this.numberCarousel.scrollToIndex(index);
                 }}
             >
-                <ImageBackground
-                    source={{ uri: uri }}
-                    style={styles.imageBackground}
-                >
-
-                </ImageBackground>
+                <Draggable uri={uri}></Draggable>
 
             </TouchableOpacity>
         );
@@ -61,7 +58,7 @@ export default class CustomCarousel extends Component {
                 renderItem={this.renderItem}
                 initialIndex={Math.floor(data.length / 2)}
                 itemWidth={0.5 * width}
-                inActiveOpacity={0.3}
+                inActiveOpacity={1}
                 containerWidth={width - 0}
                 ref={(c) => {
                     this.numberCarousel = c;
@@ -83,11 +80,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 5,
         borderColor: '#000',
-        elevation: 3
+        alignContent: "center",
+        justifyContent: "center",
     },
-    imageBackground: {
-        flex: 2,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-    }
 });

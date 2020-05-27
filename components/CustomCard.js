@@ -35,19 +35,17 @@ export default class CustomCard extends React.Component {
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        flexWrap: 'nowrap',
         justifyContent: 'center',
-        width: "40%",
     },
     card: {
         flex: 7,
         width: "100%",
     },
     cardCover: {
-        width: "100%",
-        height: "100%",
+        flex: 1,
     },
     slider: {
         flex: 1,
