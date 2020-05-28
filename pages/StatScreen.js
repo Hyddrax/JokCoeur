@@ -12,25 +12,81 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { reload } from 'expo/build/Updates/Updates';
 import CustomDatePicker from '../components/CustomDatePicker';
 
+import axios from "axios"
+
+const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
 
 export default class StatScreen extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isModalVisible: false,
       isFocus: false,
       data: this.dataSource,
+      emotList: this.emotList,
       startDate: null,
       endDate: null,
+      userId: 1,
     };
+
+    console.log("Call API Stat_____________________");
+
+    this.callsApi();
+
   }
 
   static navigationOptions = {
     title: "Statistique",
   };
 
+  async callsApi() {
+    let urlStat = apiServerIp + '/stats/' + this.state.userId
+    let urlEmot = apiServerIp + '/emots/'
+
+    if (this.state.startDate != null && this.state.endDate != null) {
+      urlStat += "?startDate=" + this.state.startDate + "&endDate=" + this.state.endDate
+    } else if (this.state.startDate != null) {
+      urlStat += "?startDate=" + this.state.startDate
+    } else if (this.state.endDate != null) {
+      urlStat += "?endDate=" + this.state.endDate
+    }
+
+    let stats = await axios.get(urlStat)
+      .then((response) => {
+        console.log(response.data, "response data");
+        return response.data;
+      })
+      .catch(error => console.log(error))
+
+    let emots = await axios.get(urlEmot)
+      .then((response) => {
+        console.log(response.data, "response data");
+        return response.data;
+      })
+      .catch(error => console.log(error))
+
+
+    this.setState({
+      data: stats,
+      emotList: emots
+    })
+    this.dataSource = stats
+  }
+
   // data = [[15, "Colère"], [60, "Triste"], [55, "Joie"], [75, "Fatigue"], [30, "Ennuye"], [20, "test"], [85, "test2"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"]];
   dataSource = [{ value: 30, label: "Colère" }, { value: 60, label: "Triste" }, { value: 55, label: "Joie" }, { value: 75, label: "Fatigue" }, { value: 30, label: "Ennuye" }]
+  emotList = [
+    ["lib3", "#00F"],
+    ["Triste", "#0FF"],
+    ["Joie", "#FFF"],
+    ["Fatigue", "#F00"],
+    ["Ennuye", "#ff0"],
+    ["test", "#f0f"],
+    ["test2", "#0f0"],
+    ["test3", "#8f8"],
+  ]
+
 
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -85,11 +141,13 @@ export default class StatScreen extends React.Component {
     this.setState({
       startDate: nDate
     })
+    this.callsApi();
   }
   updateEndDate = (nDate) => {
     this.setState({
       endDate: nDate
     })
+    this.callsApi();
   }
 
   render() {
@@ -113,8 +171,8 @@ export default class StatScreen extends React.Component {
           </ScrollView>
 
           <View style={styles.dateView}>
-            <CustomDatePicker callBack={this.updateStartDate} placeHolder="Date de début" />
-            <CustomDatePicker callBack={this.updateEndDate} placeHolder="Date de fin" />
+            <CustomDatePicker callBack={this.updateStartDate} placeHolder="Date de début" date={this.state.startDate} />
+            <CustomDatePicker callBack={this.updateEndDate} placeHolder="Date de fin" date={this.state.endDate} />
           </View>
 
 
@@ -136,7 +194,7 @@ export default class StatScreen extends React.Component {
           </TouchableOpacity>
         </Modal>
         <View style={styles.content}>
-          <SVG data={this.state.data} />
+          <SVG data={this.state.data} emotList={this.state.emotList} />
         </View>
       </View >
     );

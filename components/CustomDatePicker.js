@@ -7,11 +7,11 @@ export default class CustomDatePicker extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: null,
+            date: this.props.date || null,
             show: false,
             mode: 'date',
             placeHolder: this.props.placeHolder || "placeHolder Undefined",
-            placeHolderStatus: true,
+            placeHolderStatus: this.props.date == null ? true : false,
         };
     }
 

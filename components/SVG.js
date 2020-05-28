@@ -3,18 +3,18 @@ import { HTMLDocument } from 'react-native';
 import Svg, { Rect, G } from 'react-native-svg'
 
 
-const emotList = [
-  ["Colère", "#00F"],
-  ["Triste", "#0FF"],
-  ["Joie", "#FFF"],
-  ["Fatigue", "#F00"],
-  ["Ennuye", "#ff0"],
-  ["test", "#f0f"],
-  ["test2", "#0f0"],
-  ["test3", "#8f8"],
-]
+// const emotList = [
+//   ["Colère", "#00F"],
+//   ["Triste", "#0FF"],
+//   ["Joie", "#FFF"],
+//   ["Fatigue", "#F00"],
+//   ["Ennuye", "#ff0"],
+//   ["test", "#f0f"],
+//   ["test2", "#0f0"],
+//   ["test3", "#8f8"],
+// ]
 
-var generateSVG = (tabs) => {
+var generateSVG = (tabs, emotList) => {
 
   var ret = [];
 
@@ -26,7 +26,7 @@ var generateSVG = (tabs) => {
       y = 100 * 0.5
     }
 
-    let color = emotList.find(element => element[0] == tabs[i].label);
+    let color = emotList.find(element => element.lib == tabs[i].label);
     if (color == null) {
       color = [["noColor", "#000"]]
     }
@@ -35,12 +35,12 @@ var generateSVG = (tabs) => {
       y={y + "%"}
       width={(100 / (tabs.length + 2)) + "%"}
       height={(tabs[i].value * 0.5) + "%"}
-      fill={color[1]}
+      fill={color.color}
       strokeWidth="1"
       stroke="#888"
       key={(i + 2)}
       onPress={() => {
-        let value = color[0];
+        let value = color.lib;
         alert(value)
       }}
     />
@@ -63,7 +63,7 @@ const SvgComponent = props => (
       fill="rgb(0,0,0)"
       key={1}
     />
-    {generateSVG(props.data)}
+    {generateSVG(props.data, props.emotList)}
   </Svg>
 )
 
