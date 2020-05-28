@@ -65,16 +65,16 @@ export default class SignUpForm extends React.Component {
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
-                        placeholder="Prénom"
+                        placeholder="Nom"
                         placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({ prenom: text })} />
+                        onChangeText={text => this.setState({ nom: text })} />
                 </View>
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
-                        placeholder="Nom"
+                        placeholder="Prénom"
                         placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({ nom: text })} />
+                        onChangeText={text => this.setState({ prenom: text })} />
                 </View>
                 <View style={styles.inputView} >
                     <NumericInput
@@ -119,7 +119,7 @@ export default class SignUpForm extends React.Component {
     }
 
     async validateRegistration() {
-        let bouchon = true;
+        let bouchon = false;
 
         if (!bouchon) {
             let validateFields = this.validateFields();
@@ -262,5 +262,9 @@ const styles = StyleSheet.create({
     },
     signupText: {
         color: "#fff"
+    },
+    errorText: {
+        fontWeight: "bold",
+        color: "#F00"
     }
 });

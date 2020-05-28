@@ -1,0 +1,19 @@
+JokCoeur
+
+TODO :
+	
+	StatsScreen -> 
+		X Call api onCreate
+		X Call api onDateChange
+		X Call Api getAllEmot for match Color and Lib in SVG.js
+	SettingScreen ->
+		- Mon Compte -> modifier mes information -> Page d'édition (controle similaire à la création + OldMDP, NewMdp * 2)
+		X A propos -> lorem ipsum
+		X Nous contacter -> Champ de saisi + bouton Valider
+	JournalScreen ->
+		X Click&Select
+		X Array AllItem, ItemUsed -> ItemAvailable
+		X Btn Valider -> call api to save data
+		- LongPress -> Show emot info 
+		- If Time -> Alter table EmotStats to add column "Comment" and add Input Text before validate Btn
+		

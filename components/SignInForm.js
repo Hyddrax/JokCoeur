@@ -88,7 +88,7 @@ export default class SignInForm extends React.Component {
 
             let userApiCall = await axios.get(url)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
 
                     return response.data;
 

@@ -27,10 +27,9 @@ export default class StatScreen extends React.Component {
       emotList: this.emotList,
       startDate: null,
       endDate: null,
-      userId: 1,
+      userId: 3,
     };
 
-    console.log("Call API Stat_____________________");
 
     this.callsApi();
 
@@ -54,14 +53,14 @@ export default class StatScreen extends React.Component {
 
     let stats = await axios.get(urlStat)
       .then((response) => {
-        console.log(response.data, "response data");
+        // console.log(response.data, "response data");
         return response.data;
       })
       .catch(error => console.log(error))
 
     let emots = await axios.get(urlEmot)
       .then((response) => {
-        console.log(response.data, "response data");
+        // console.log(response.data, "response data");
         return response.data;
       })
       .catch(error => console.log(error))
@@ -184,9 +183,6 @@ export default class StatScreen extends React.Component {
             <TouchableOpacity style={styles.selectModalBtn} onPress={this.unCheckAll}>
               <Text style={styles.exitModalText}>Tout Deselectionner</Text>
             </TouchableOpacity>
-          </View>
-          <View style={{}}>
-            {/* Input Type Date  */}
           </View>
 
           <TouchableOpacity style={styles.exitModalBtn} onPress={() => { this.modalHandler(false, true) }}>
