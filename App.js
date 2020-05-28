@@ -14,6 +14,9 @@ import JournalScreen from './pages/JournalScreen';
 import StatScreen from './pages/StatScreen'
 import LoginScreen from './pages/LoginScreen'
 import RegisterScreen from './pages/RegisterScreen'
+import AboutScreen from './pages/AboutScreen';
+import MyAccountScreen from './pages/MyAccountScreen';
+import ContactScreen from './pages/ContactScreen';
 
 const JournalStack = createStackNavigator(
   {
@@ -57,6 +60,9 @@ const SettingsStack = createStackNavigator(
   {
     //Defination of Navigaton from setting screen
     Settings: { screen: SettingsScreen },
+    About: { screen: AboutScreen },
+    MyAccount: { screen: MyAccountScreen },
+    Contact: { screen: ContactScreen }
   },
   {
     defaultNavigationOptions: {
@@ -68,6 +74,8 @@ const SettingsStack = createStackNavigator(
       title: 'Settings',
       //Header title
     },
+    initialRouteName: 'Settings',
+
   }
 );
 

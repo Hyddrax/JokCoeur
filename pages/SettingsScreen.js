@@ -7,7 +7,15 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class SettingsScreen extends React.Component {
-    //Setting Screen to show in Setting Option
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            notificationsState: false,
+        };
+    }
+
+
     render() {
         return (
             <View style={styles.background}>
@@ -16,32 +24,60 @@ export default class SettingsScreen extends React.Component {
                 </View>
 
                 <View style={{ flex: 4 }}>
-
-                    <View style={styles.borderStyleTop}>
+                    <TouchableOpacity style={styles.borderStyleTop}
+                        onPress={() => {
+                            this.props.navigation.navigate('MyAccount');
+                        }}
+                    >
                         <View style={{ flex: 1 }} />
                         <Icon name="user-circle-o" color="#000" size={20} style={styles.icon} />
                         <Text style={styles.Text1}> Mon compte </Text>
-                    </View>
+                    </TouchableOpacity>
 
-                    <View style={styles.borderStyle}>
+                    <TouchableOpacity style={styles.borderStyle}
+                        onPress={() => {
+                            this.setState({
+                                notificationsState: !this.state.notificationsState,
+                            })
+                        }}
+                    >
                         <View style={{ flex: 1 }} />
-                        <Icon name="bell-slash-o" color="#000" size={20} style={styles.icon} />
+                        <Icon name={"bell-" + (this.state.notificationsState ? "" : "slash-") + "o"} color="#000" size={20} style={styles.icon} />
                         <Text style={styles.Text1}> Recevoir les notifications </Text>
-                    </View>
+                    </TouchableOpacity>
 
-                    <View style={styles.borderStyle}>
+                    <TouchableOpacity style={styles.borderStyle}
+                        onPress={() => {
+                            this.props.navigation.navigate('Contact');
+                        }}
+                    >
+                        <View style={{ flex: 1 }} />
+                        <Icon name="envelope" color="#000" size={20} style={styles.icon} />
+                        <Text style={styles.Text1}> Nous Contacter </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.borderStyle}
+                        onPress={() => {
+                            this.props.navigation.navigate('About');
+                        }}
+                    >
                         <View style={{ flex: 1 }} />
                         <Icon name="exclamation-circle" color="#000" size={20} style={styles.icon} />
                         <Text style={styles.Text1}> A propos de </Text>
-                    </View>
+                    </TouchableOpacity>
 
-                    <View style={styles.borderStyle}>
+                    <TouchableOpacity style={styles.borderStyle}
+                        onPress={() => {
+                            //TODO exit session
+                            this.props.navigation.navigate('SignIn');
+                        }}
+                    >
                         <View style={{ flex: 1 }} />
                         <Icon name="sign-out" color="#000" size={20} style={styles.icon} />
                         <Text style={styles.Text1}> Deconnexion </Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
-            </View>
+            </View >
         );
     }
 }
