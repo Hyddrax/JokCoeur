@@ -7,9 +7,10 @@ TODO :
 		X Call api onDateChange
 		X Call Api getAllEmot for match Color and Lib in SVG.js
 	SettingScreen ->
-		- Mon Compte -> modifier mes information -> Page d'édition (controle similaire à la création + OldMDP, NewMdp * 2)
+		X Mon Compte -> modifier mes information -> Page d'édition (controle similaire à la création + OldMDP, NewMdp * 2)
 		X A propos -> lorem ipsum
 		X Nous contacter -> Champ de saisi + bouton Valider
+		- Faire en sorte de Update 1 champ par un champ sur la page d'infos
 	JournalScreen ->
 		X Click&Select
 		X Array AllItem, ItemUsed -> ItemAvailable
@@ -17,3 +18,5 @@ TODO :
 		- LongPress -> Show emot info 
 		- If Time -> Alter table EmotStats to add column "Comment" and add Input Text before validate Btn
 		
+
+	!!! SERVICE API pour les call API

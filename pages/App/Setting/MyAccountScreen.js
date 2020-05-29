@@ -4,12 +4,16 @@ import { Text, View, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 
 
 import { apiBouchon } from '../../../config/Variables';
 
+import axios from "axios"
+
+const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
+
 export default class MyAccountScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isEdition: false,
-            email: this.props.email || "test@test.fr",
+            email: this.props.email || "test1@test.fr",
             password: this.props.password || "1232etst",
             profession: this.props.profession || "test",
             prenom: this.props.name || "test",
@@ -77,7 +81,8 @@ export default class MyAccountScreen extends React.Component {
 
                         if (user.password == this.state.oldPassword) {
 
-                            url = apiServerIp + '/user' + this.state.email
+                            url = apiServerIp + '/user/' + this.state.email
+                            console.log(url);
 
                             userApiCall = await axios.put(url, {
                                 email: this.state.newEmail,

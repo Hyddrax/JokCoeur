@@ -20,15 +20,20 @@ export default class StatScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    this.dataSource = [];
+
     this.state = {
       isModalVisible: false,
       isFocus: false,
       data: this.dataSource,
-      emotList: this.emotList,
+      emotList: [],
       startDate: null,
       endDate: null,
       userId: 3,
     };
+  }
+
+  componentDidMount() {
     this.callsApi();
   }
 
@@ -73,12 +78,15 @@ export default class StatScreen extends React.Component {
       this.dataSource = stats
     } else {
       //IF Bonchon
+      this.dataSource = bouchonStatsData || [];
+      this.setState({
+        data: this.dataSource,
+        emotList: bouchonEmotList || []
+      })
     }
   }
 
   // data = [[15, "Colère"], [60, "Triste"], [55, "Joie"], [75, "Fatigue"], [30, "Ennuye"], [20, "test"], [85, "test2"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"]];
-  dataSource = bouchonStatsData || [];
-  emotList = bouchonEmotList || [];
 
 
 

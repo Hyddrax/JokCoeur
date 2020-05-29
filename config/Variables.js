@@ -28,6 +28,7 @@ export const bouchonEmotList = [
         "id": 1,
         "lib": "Colère",
         "color": "#00F",
+        "uri": 'https://media.discordapp.net/attachments/643737938735267843/646626060934447125/confiance.png?width=888&height=630',
         "createdAt": "2020-05-27T00:00:00.000Z",
         "updatedAt": "2020-05-27T00:00:00.000Z"
     },
@@ -35,6 +36,7 @@ export const bouchonEmotList = [
         "id": 2,
         "lib": "Triste",
         "color": "#0FF",
+        "uri": 'https://media.discordapp.net/attachments/643737938735267843/646626061341163530/honte.png?width=510&height=630',
         "createdAt": "2020-05-27T00:00:00.000Z",
         "updatedAt": "2020-05-27T00:00:00.000Z"
     },
@@ -42,6 +44,7 @@ export const bouchonEmotList = [
         "id": 3,
         "lib": "Joie",
         "color": "#FFF",
+        "uri": 'https://media.discordapp.net/attachments/643737938735267843/646626057654370304/curiosite.png?width=640&height=630',
         "createdAt": "2020-05-27T00:00:00.000Z",
         "updatedAt": "2020-05-27T00:00:00.000Z"
     },
@@ -49,6 +52,7 @@ export const bouchonEmotList = [
         "id": 4,
         "lib": "Fatigue",
         "color": "#F00",
+        "uri": 'https://media.discordapp.net/attachments/643737938735267843/646626029103874048/amour.png?width=726&height=631',
         "createdAt": "2020-05-27T00:00:00.000Z",
         "updatedAt": "2020-05-27T00:00:00.000Z"
     },
@@ -56,6 +60,7 @@ export const bouchonEmotList = [
         "id": 5,
         "lib": "Ennuye",
         "color": "#ff0",
+        "uri": 'https://media.discordapp.net/attachments/643737938735267843/646626062914289680/peur.png?width=603&height=630',
         "createdAt": "2020-05-27T00:00:00.000Z",
         "updatedAt": "2020-05-27T00:00:00.000Z"
     },

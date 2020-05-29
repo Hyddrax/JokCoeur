@@ -8,6 +8,8 @@ import axios from "axios"
 
 const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
 
+import { apiBouchon, bouchonEmotList } from "../../../config/Variables"
+
 export default class JournalScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -16,10 +18,41 @@ export default class JournalScreen extends React.Component {
             isModalVisible: false,
             isFocus: false,
             itemUsed: [null, null, null, null],
+            emotList: [],
             currentIndex: null,
-
         };
     }
+
+    componentDidMount() {
+        this.callsApi();
+    }
+
+    async callsApi() {
+        let bouchon = apiBouchon;
+
+        if (!bouchon) {
+            let urlEmot = apiServerIp + '/emots/'
+
+            let emots = await axios.get(urlEmot)
+                .then((response) => {
+                    // console.log(response.data, "response data");
+
+
+                    return response.data;
+                })
+                .catch(error => console.log(error))
+
+            this.setState({
+                emotList: emots
+            })
+        } else {
+            //IF Bonchon
+            this.setState({
+                emotList: bouchonEmotList || []
+            })
+        }
+    }
+
 
     toggleModal = () => {
         this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -45,36 +78,6 @@ export default class JournalScreen extends React.Component {
         }
 
     }
-
-    dataSource = [
-        {
-            emotId: 1,
-            value: 0,
-            uri: 'https://media.discordapp.net/attachments/643737938735267843/646626060934447125/confiance.png?width=888&height=630',
-        },
-        {
-            emotId: 2,
-            value: 0,
-            uri: 'https://media.discordapp.net/attachments/643737938735267843/646626061341163530/honte.png?width=510&height=630',
-        },
-        {
-            emotId: 3,
-            value: 0,
-            uri: 'https://media.discordapp.net/attachments/643737938735267843/646626057654370304/curiosite.png?width=640&height=630',
-        },
-        {
-            emotId: 4,
-            value: 0,
-            uri: 'https://media.discordapp.net/attachments/643737938735267843/646626029103874048/amour.png?width=726&height=631',
-
-        },
-        {
-            emotId: 5,
-            value: 0,
-            uri: 'https://media.discordapp.net/attachments/643737938735267843/646626062914289680/peur.png?width=603&height=630',
-
-        }
-    ];
 
     emotZoneEditValue = (index, val) => {
         let tmp = this.state.itemUsed
@@ -109,26 +112,77 @@ export default class JournalScreen extends React.Component {
         )
     }
 
+    renderModalScrollView() {
+        let itemAvailable = this.state.emotList.filter(x => !this.state.itemUsed.includes(x));
+
+        let rowArray = [];
+        let row = [];
+        let counter = 0;
+
+        itemAvailable.map((prop, key) => {
+            row.push(
+                prop
+            )
+            if (counter == 1) {
+
+                counter = 0
+                rowArray.push(row)
+                row = []
+            } else {
+                counter++
+            }
+        })
+        if (row.length > 0) {
+            rowArray.push(row)
+        }
+
+        return (
+            <ScrollView style={{}}>
+                {
+                    rowArray.map((prop, key) => {
+                        let isFirst = false;
+                        if (key == 0) {
+                            isFirst = true;
+                        }
+                        return (
+                            <View key={key} style={[
+                                {
+                                    flexDirection: "row",
+                                    justifyContent: "space-around",
+                                    paddingBottom: 15
+                                },
+                                isFirst == true ? { paddingTop: 15 } : { paddingTop: 0 }]}
+                            >
+                                {
+                                    prop.map((prop, key) => {
+                                        return (
+                                            <TouchableOpacity key={key} style={{ width: "40%" }}
+                                                onPress={() => { this.modalHandler(false, true, prop) }}
+                                                onPressIn={() => { this.modalHandler(true, false) }}
+                                                onPressOut={() => { this.modalHandler(false, false) }}>
+                                                <CustomCard uri={prop} sliderVisibility={false} />
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
+                            </View>
+
+                        );
+
+
+                    })
+                }
+            </ScrollView >
+        )
+    }
+
     render() {
-        let itemAvailable = this.dataSource.filter(x => !this.state.itemUsed.includes(x));
-        let index = 0;
         return (
             <View style={styles.container}>
 
 
                 <Modal isVisible={this.state.isModalVisible} style={{ backgroundColor: 'rgba(200,200,200,0.85)', flex: 1 }}>
-                    <ScrollView style={styles.scrollView}>
-                        {itemAvailable.map((prop, key) => {
-                            return (
-                                <TouchableOpacity key={key}
-                                    onPress={() => { this.modalHandler(false, true, prop) }}
-                                    onPressIn={() => { this.modalHandler(true, false) }}
-                                    onPressOut={() => { this.modalHandler(false, false) }}>
-                                    <CustomCard uri={prop} sliderVisibility={false} />
-                                </TouchableOpacity>
-                            );
-                        })}
-                    </ScrollView>
+                    {this.renderModalScrollView()}
 
                     <TouchableOpacity style={styles.exitModalBtn}
                         onPress={() => {
@@ -141,6 +195,7 @@ export default class JournalScreen extends React.Component {
                         }}>
                         <Text style={styles.exitModalText}>Déselectionner</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity style={styles.exitModalBtn} onPress={() => {
                         this.modalHandler(false, true)
                     }}>
@@ -158,6 +213,7 @@ export default class JournalScreen extends React.Component {
                     {this.renderEmotZone(2)}
                     {this.renderEmotZone(3)}
                 </View>
+
                 <TouchableOpacity style={styles.exitModalBtn}
                     onPress={() => {
                         let tmp = []
@@ -165,7 +221,7 @@ export default class JournalScreen extends React.Component {
                             if (element != null) {
                                 tmp = [...tmp, {
                                     userId: "3",
-                                    emotId: element.emotId,
+                                    emotId: element.id,
                                     emotValue: element.value
                                 }]
                             }
@@ -179,21 +235,30 @@ export default class JournalScreen extends React.Component {
     }
 
     async callApiInsertData(data) {
+        let bouchon = apiBouchon;
 
-        if (data.length > 0) {
-            let url = apiServerIp + '/stats/'
+        if (!bouchon) {
+            if (data.length > 0) {
+                let url = apiServerIp + '/stats/'
 
-            let retApiCall = await axios.post(url, data)
-                .then((response) => {
-                    return response.data;
-                })
-                .catch(error => console.log(error))
+                let retApiCall = await axios.post(url, data)
+                    .then((response) => {
+                        return response.data;
+                    })
+                    .catch(error => console.log(error))
 
-            if (retApiCall != null) {//ret 200
-                this.setState({
-                    itemUsed: [null, null, null, null]
-                })
+                if (retApiCall != null) {//ret 200
+                    this.setState({
+                        itemUsed: [null, null, null, null]
+                    })
+                } else {
+                    //TODO afficher err
+                }
             }
+        } else {
+            this.setState({
+                itemUsed: [null, null, null, null]
+            })
         }
 
     }
