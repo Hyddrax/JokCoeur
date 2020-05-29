@@ -1,4 +1,3 @@
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthSession } from 'expo';
 
 import React from 'react';
@@ -7,6 +6,8 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import axios from "axios"
 
 const apiServerIp = 'http://192.168.0.15:3000/api'
+
+import { apiBouchon } from '../../config/Variables';
 
 
 export default class SignInForm extends React.Component {
@@ -81,7 +82,7 @@ export default class SignInForm extends React.Component {
     }
 
     async validateConnection() {
-        let bouchon = true;
+        let bouchon = apiBouchon;
 
         if (!bouchon) {
             let url = apiServerIp + '/user/' + this.state.email

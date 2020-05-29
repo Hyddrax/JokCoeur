@@ -1,20 +1,20 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, SVGAElement, Button, TouchableOpacity, ScrollView } from 'react-native';
-import Constants from 'expo-constants';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
-
-import SVG from '../components/SVG'
-import CustomCheckBox from '../components/CustomCheckBox'
+import SVG from './SVG'
+import CustomCheckBox from '../../../components/CustomCheckBox'
 
 import Modal from 'react-native-modal';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import { reload } from 'expo/build/Updates/Updates';
-import CustomDatePicker from '../components/CustomDatePicker';
+import CustomDatePicker from '../../../components/CustomDatePicker';
 
 import axios from "axios"
 
 const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
+
+import { apiBouchon, bouchonStatsData, bouchonEmotList } from '../../../config/Variables';
+
 
 export default class StatScreen extends React.Component {
   constructor(props) {
@@ -29,10 +29,7 @@ export default class StatScreen extends React.Component {
       endDate: null,
       userId: 3,
     };
-
-
     this.callsApi();
-
   }
 
   static navigationOptions = {
@@ -40,51 +37,49 @@ export default class StatScreen extends React.Component {
   };
 
   async callsApi() {
-    let urlStat = apiServerIp + '/stats/' + this.state.userId
-    let urlEmot = apiServerIp + '/emots/'
+    let bouchon = apiBouchon;
 
-    if (this.state.startDate != null && this.state.endDate != null) {
-      urlStat += "?startDate=" + this.state.startDate + "&endDate=" + this.state.endDate
-    } else if (this.state.startDate != null) {
-      urlStat += "?startDate=" + this.state.startDate
-    } else if (this.state.endDate != null) {
-      urlStat += "?endDate=" + this.state.endDate
+    if (!bouchon) {
+      let urlStat = apiServerIp + '/stats/' + this.state.userId
+      let urlEmot = apiServerIp + '/emots/'
+
+      if (this.state.startDate != null && this.state.endDate != null) {
+        urlStat += "?startDate=" + this.state.startDate + "&endDate=" + this.state.endDate
+      } else if (this.state.startDate != null) {
+        urlStat += "?startDate=" + this.state.startDate
+      } else if (this.state.endDate != null) {
+        urlStat += "?endDate=" + this.state.endDate
+      }
+
+      let stats = await axios.get(urlStat)
+        .then((response) => {
+          // console.log(response.data, "response data");
+          return response.data;
+        })
+        .catch(error => console.log(error))
+
+      let emots = await axios.get(urlEmot)
+        .then((response) => {
+          // console.log(response.data, "response data");
+          return response.data;
+        })
+        .catch(error => console.log(error))
+
+
+      this.setState({
+        data: stats,
+        emotList: emots
+      })
+      this.dataSource = stats
+    } else {
+      //IF Bonchon
     }
-
-    let stats = await axios.get(urlStat)
-      .then((response) => {
-        // console.log(response.data, "response data");
-        return response.data;
-      })
-      .catch(error => console.log(error))
-
-    let emots = await axios.get(urlEmot)
-      .then((response) => {
-        // console.log(response.data, "response data");
-        return response.data;
-      })
-      .catch(error => console.log(error))
-
-
-    this.setState({
-      data: stats,
-      emotList: emots
-    })
-    this.dataSource = stats
   }
 
   // data = [[15, "Colère"], [60, "Triste"], [55, "Joie"], [75, "Fatigue"], [30, "Ennuye"], [20, "test"], [85, "test2"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"], [45, "test3"]];
-  dataSource = [{ value: 30, label: "Colère" }, { value: 60, label: "Triste" }, { value: 55, label: "Joie" }, { value: 75, label: "Fatigue" }, { value: 30, label: "Ennuye" }]
-  emotList = [
-    ["lib3", "#00F"],
-    ["Triste", "#0FF"],
-    ["Joie", "#FFF"],
-    ["Fatigue", "#F00"],
-    ["Ennuye", "#ff0"],
-    ["test", "#f0f"],
-    ["test2", "#0f0"],
-    ["test3", "#8f8"],
-  ]
+  dataSource = bouchonStatsData || [];
+  emotList = bouchonEmotList || [];
+
 
 
   toggleModal = () => {

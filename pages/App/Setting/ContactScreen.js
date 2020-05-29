@@ -1,11 +1,6 @@
-//This is an example code for Bottom Navigation//
 import React from 'react';
-//import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-//import all the basic component we have used
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { TextInput } from 'react-native-gesture-handler';
+import { Text, View, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 
 export default class ContactScreen extends React.Component {
     constructor(props) {

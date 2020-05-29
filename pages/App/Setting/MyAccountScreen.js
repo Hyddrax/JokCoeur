@@ -1,11 +1,8 @@
-//This is an example code for Bottom Navigation//
 import React from 'react';
-//import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 'react-native';
-//import all the basic component we have used
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import NumericInput from '../components/NumericInput';
+import { Text, View, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 'react-native';
+
+import { apiBouchon } from '../../../config/Variables';
 
 export default class MyAccountScreen extends React.Component {
     constructor(props) {
@@ -58,7 +55,7 @@ export default class MyAccountScreen extends React.Component {
     }
 
     async validateUpdate() {
-        let bouchon = false;
+        let bouchon = apiBouchon;
 
         if (!bouchon) {
             let validateFields = this.validateFields();

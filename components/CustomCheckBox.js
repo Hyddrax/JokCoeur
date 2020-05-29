@@ -1,10 +1,6 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image, Slider } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { CheckBox } from 'react-native-elements'
-
-// import Slider from "@react-native-community/slider";
-
-
 export default class CustomCheckBox extends React.Component {
     constructor(props) {
         super();

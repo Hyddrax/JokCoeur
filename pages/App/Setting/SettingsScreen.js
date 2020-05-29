@@ -1,8 +1,6 @@
-//This is an example code for Bottom Navigation//
 import React from 'react';
-//import react in our code.
+
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-//import all the basic component we have used
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -14,7 +12,6 @@ export default class SettingsScreen extends React.Component {
             notificationsState: false,
         };
     }
-
 
     render() {
         return (

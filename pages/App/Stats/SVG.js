@@ -1,5 +1,4 @@
 import React from 'react';
-import { HTMLDocument } from 'react-native';
 import Svg, { Rect, G } from 'react-native-svg'
 
 

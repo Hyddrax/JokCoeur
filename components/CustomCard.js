@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image, Slider } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { View, StyleSheet, Slider } from 'react-native';
+import { Card } from 'react-native-paper';
 // import Slider from "@react-native-community/slider";
-
-
 export default class CustomCard extends React.Component {
     constructor(props) {
         super();
-
         this.state = {
             uri: props.uri,
             sliderVisibility: props.sliderVisibility == undefined ? true : false,

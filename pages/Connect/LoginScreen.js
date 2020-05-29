@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import SignInForm from '../components/SignInForm';
+import { StyleSheet, View } from 'react-native';
+import SignInForm from "./SignInForm"
 
 export default class LoginScreen extends Component {
     constructor(props) {

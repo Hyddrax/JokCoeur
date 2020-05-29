@@ -1,14 +1,15 @@
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthSession } from 'expo';
 
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import NumericInput from './NumericInput';
-
+import NumericInput from '../../components/NumericInput';
 
 import axios from "axios"
 
 const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
+
+import { apiBouchon } from '../../config/Variables';
+
 
 export default class SignUpForm extends React.Component {
     constructor(props) {
@@ -119,7 +120,7 @@ export default class SignUpForm extends React.Component {
     }
 
     async validateRegistration() {
-        let bouchon = false;
+        let bouchon = apiBouchon;
 
         if (!bouchon) {
             let validateFields = this.validateFields();

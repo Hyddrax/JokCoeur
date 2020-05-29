@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-    AppRegistry,
-    ScrollView,
-    Image, Text, View, TextInput, StyleSheet,
-    Dimension
-} from 'react-native';
-
+import { TextInput, StyleSheet } from 'react-native';
 export default class NumericInput extends Component {
     constructor(props) {
         super(props);

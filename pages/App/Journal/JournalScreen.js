@@ -1,19 +1,12 @@
-//This is an example code for Bottom Navigation//
 import React from 'react';
-//import react in our code.
-// import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-//import all the basic component we have used
 
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import CustomCard from "../components/CustomCard";
+import CustomCard from "../../../components/CustomCard";
 import Modal from 'react-native-modal';
-import CustomCheckBox from '../components/CustomCheckBox'
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import axios from "axios"
 
 const apiServerIp = 'http://192.168.0.15:3000/api'//TODO change ip with api server ip don't use 'localhost'
-
 
 export default class JournalScreen extends React.Component {
     constructor(props) {

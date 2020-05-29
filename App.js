@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -8,20 +7,17 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import HomeScreen from './pages/HomeScreen';
-import SettingsScreen from './pages/SettingsScreen';
-import JournalScreen from './pages/JournalScreen';
-import StatScreen from './pages/StatScreen'
-import LoginScreen from './pages/LoginScreen'
-import RegisterScreen from './pages/RegisterScreen'
-import AboutScreen from './pages/AboutScreen';
-import MyAccountScreen from './pages/MyAccountScreen';
-import ContactScreen from './pages/ContactScreen';
+import SettingsScreen from './pages/App/Setting/SettingsScreen';
+import JournalScreen from './pages/App/Journal/JournalScreen';
+import StatScreen from './pages/App/Stats/StatScreen'
+import LoginScreen from './pages/Connect/LoginScreen'
+import RegisterScreen from './pages/Connect/RegisterScreen'
+import AboutScreen from './pages/App/Setting/AboutScreen';
+import MyAccountScreen from './pages/App/Setting/MyAccountScreen';
+import ContactScreen from './pages/App/Setting/ContactScreen';
 
 const JournalStack = createStackNavigator(
   {
-    //Defination of Navigaton from home screen
-    // Home: { screen: HomeScreen },
     Journal: { screen: JournalScreen },
   },
   {

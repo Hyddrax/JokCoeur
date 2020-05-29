@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import SignUpForm from '../components/SignUpForm';
+import { StyleSheet, View } from 'react-native';
+import SignUpForm from "./SignUpForm"
 
 export default class RegisterScreen extends Component {
     constructor(props) {
