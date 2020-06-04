@@ -20,3 +20,7 @@ TODO :
 		
 
 	!!! SERVICE API pour les call API
+
+	+ AuthSession for user information throw app
+	+ adapter for Web ??
+	+ Mini Film
