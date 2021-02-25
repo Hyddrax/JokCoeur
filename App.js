@@ -27,7 +27,7 @@ const JournalStack = createStackNavigator(
         backgroundColor: '#800080',
       },
       headerTintColor: '#FFFFFF',
-      title: 'Journal',
+      title: 'JournalTEST',
       //Header title
     },
   }
